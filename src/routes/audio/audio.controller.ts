@@ -30,8 +30,8 @@ export default class AudioController {
         try {
             let { mediaId }:any = req.query
             if (!mediaId) return res.status(400).json('media id is required')
-            let { related_videos, videoDetails } = await getAudioInfo(mediaId)
-            res.status(200).json({ related_videos, video_details: videoDetails })
+            let { related, details } = await getAudioInfo(mediaId)
+            res.status(200).json({ related, details })
         } catch (error) {
             console.log(error)
             res.status(500).json({ msg: 'Internal server error' })

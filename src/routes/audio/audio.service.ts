@@ -16,7 +16,7 @@ export async function getStreamUrl(sourceId:string):Promise<string|any> {
 export async function getAudioInfo(sourceId:string):Promise<any> {
     try {
         let { related_videos, videoDetails }:any = await ytdl.getInfo(sourceId)
-        return { related_videos, videoDetails }
+        return { related:related_videos, details:videoDetails }
     } catch (error) {
         console.log(error)
         return null
