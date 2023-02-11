@@ -44,8 +44,8 @@ AudioController.info = (req, res) => __awaiter(void 0, void 0, void 0, function*
         let { mediaId } = req.query;
         if (!mediaId)
             return res.status(400).json('media id is required');
-        let { related_videos, videoDetails } = yield (0, audio_service_1.getAudioInfo)(mediaId);
-        res.status(200).json({ related_videos, video_details: videoDetails });
+        let { related, details } = yield (0, audio_service_1.getAudioInfo)(mediaId);
+        res.status(200).json({ related, details });
     }
     catch (error) {
         console.log(error);

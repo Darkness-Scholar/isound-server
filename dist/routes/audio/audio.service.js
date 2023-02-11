@@ -29,7 +29,7 @@ function getAudioInfo(sourceId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let { related_videos, videoDetails } = yield ytdl.getInfo(sourceId);
-            return { related_videos, videoDetails };
+            return { related: related_videos, details: videoDetails };
         }
         catch (error) {
             console.log(error);
