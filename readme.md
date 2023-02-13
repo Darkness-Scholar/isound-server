@@ -30,3 +30,16 @@
     + `related`: Các nội dung liên quan
 
     + `details`: Thông tin
+
+
+> GET: TOPRATE CONTENT
+
+- Api: http://localhost:8888/audio/toprate
+
+- Example: `axios.get("http://localhost:8888/audio/toprate")`
+
+> GET: POPULAR CONTENT
+
+- Api: http://localhost:8888/audio/popular
+
+- Example: `axios.get("http://localhost:8888/audio/popular")`

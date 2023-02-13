@@ -1,4 +1,6 @@
 import ytdl = require("ytdl-core")
+import ytsr = require("ytsr")
+import ytpl = require("ytpl")
 import express = require("express")
 import cors = require("cors")
 import bodyParser = require('body-parser')
@@ -20,6 +22,12 @@ const io = new Server(server, {
         methods: ['GET', 'POST']
     }
 })
+
+async function main () {
+    
+}
+
+main()
 
 app.use("/audio", audio)
 

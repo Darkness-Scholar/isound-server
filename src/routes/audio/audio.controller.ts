@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { getAudioInfo, getStreamUrl } from "./audio.service"
-
+import ytpl = require("ytpl")
 const TOPRATE = "PLUadgMpPaifXLKV26KIqpFp6mpZiyF2l9"
 const POPULAR = "PLUadgMpPaifVmhXn4xz-jRO934EAORUnX"
 
@@ -17,9 +17,20 @@ export default class AudioController {
         }
     }
 
-    static trending = async (req: Request, res: Response) => {
+    static toprate = async (req: Request, res: Response) => {
         try {
-            res.status(200).json('comming soon')
+            let { items } = await ytpl(TOPRATE)
+            res.status(200).json(items)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ msg: 'Internal server error' })
+        }
+    }
+    
+    static popular = async (req: Request, res: Response) => {
+        try {
+            let { items } = await ytpl(POPULAR)
+            res.status(200).json(items)
         } catch (error) {
             console.log(error)
             res.status(500).json({ msg: 'Internal server error' })

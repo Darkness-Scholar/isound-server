@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const audio_service_1 = require("./audio.service");
+const ytpl = require("ytpl");
 const TOPRATE = "PLUadgMpPaifXLKV26KIqpFp6mpZiyF2l9";
 const POPULAR = "PLUadgMpPaifVmhXn4xz-jRO934EAORUnX";
 class AudioController {
@@ -30,9 +31,20 @@ AudioController.stream = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(500).json({ msg: 'Internal server error' });
     }
 });
-AudioController.trending = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+AudioController.toprate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json('comming soon');
+        let { items } = yield ytpl(TOPRATE);
+        res.status(200).json(items);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
+});
+AudioController.popular = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { items } = yield ytpl(POPULAR);
+        res.status(200).json(items);
     }
     catch (error) {
         console.log(error);
