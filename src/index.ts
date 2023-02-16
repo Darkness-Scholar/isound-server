@@ -1,6 +1,3 @@
-import ytdl = require("ytdl-core")
-import ytsr = require("ytsr")
-import ytpl = require("ytpl")
 import express = require("express")
 import cors = require("cors")
 import bodyParser = require('body-parser')
@@ -9,6 +6,7 @@ import { Server } from "socket.io"
 
 import audio from "./routes/audio/audio.route"
 import { getAudioInfo } from "./routes/audio/audio.service"
+import user from "./routes/user/user.router"
 
 const app = express()
 app.use(cors())
@@ -24,13 +22,11 @@ const io = new Server(server, {
 })
 
 async function main () {
-    
-}
-
-main()
+    // Testing only
+}; main()
 
 app.use("/audio", audio)
-
+app.use("/user", user)
 io.on("connection", (socket) => {
     socket.on("disconect", () => {
         console.log("User disconnected")

@@ -15,6 +15,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const socket_io_1 = require("socket.io");
 const audio_route_1 = require("./routes/audio/audio.route");
+const user_router_1 = require("./routes/user/user.router");
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,10 +29,13 @@ const io = new socket_io_1.Server(server, {
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Testing only
     });
 }
+;
 main();
 app.use("/audio", audio_route_1.default);
+app.use("/user", user_router_1.default);
 io.on("connection", (socket) => {
     socket.on("disconect", () => {
         console.log("User disconnected");
