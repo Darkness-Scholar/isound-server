@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import { handleSignup } from "./user.service"
 
 export default class UserController {
     static signin = async (req: Request, res: Response) => {
@@ -14,6 +15,7 @@ export default class UserController {
         try {
             let { username, password, email } = req.body
             if (!username || !password || !email) return res.status(400).json("username or password is required")
+            let user = await handleSignup({ username, password, email })
             res.status(200).json({ username: 'test', token: 'test_token' })
         } catch (error) {
             res.status(500).json({ msg: 'Internal server error' })

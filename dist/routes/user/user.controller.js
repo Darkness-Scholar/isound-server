@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_service_1 = require("./user.service");
 class UserController {
 }
 exports.default = UserController;
@@ -30,6 +31,7 @@ UserController.signup = (req, res) => __awaiter(void 0, void 0, void 0, function
         let { username, password, email } = req.body;
         if (!username || !password || !email)
             return res.status(400).json("username or password is required");
+        let user = yield (0, user_service_1.handleSignup)({ username, password, email });
         res.status(200).json({ username: 'test', token: 'test_token' });
     }
     catch (error) {
