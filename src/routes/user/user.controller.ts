@@ -34,16 +34,17 @@ export default class UserController {
             if (!name || !password || !email) return res.status(400).json({msg: 'Email, Password or Name is required'})
 
             let user = await handleSignup({email,password,name})
+            
+            if (!user) return res.status(400).json({msg: 'Cannot sign up, this email is existed'})
 
-            if(!(user instanceof User)) return res.status(400).json({msg: 'Email already exist !'})
+            let result_user = user?.dataValues
 
-            const result_user = user?.dataValues
-
-            const token = generateTokens({username: String(result_user?.user_email)})
-
-            res.status(200).json({user:{user_id:result_user.user_id,user_email:result_user.user_email,user_name:result_user.user_name},token:token,msg:'Account successfully created !'})
+            let token = generateTokens({username: String(result_user?.user_email)})
+            
+            res.status(200).json(token)
 
         } catch (error) {
+            console.log(error)
             res.status(500).json({ msg: 'Internal server error' })
         }
     }

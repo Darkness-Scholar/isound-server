@@ -42,13 +42,14 @@ UserController.signup = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!name || !password || !email)
             return res.status(400).json({ msg: 'Email, Password or Name is required' });
         let user = yield (0, user_service_1.handleSignup)({ email, password, name });
-        if (!(user instanceof User_model_1.default))
-            return res.status(400).json({ msg: 'Email already exist !' });
-        const result_user = user === null || user === void 0 ? void 0 : user.dataValues;
-        const token = (0, token_service_1.generateTokens)({ username: String(result_user === null || result_user === void 0 ? void 0 : result_user.user_email) });
-        res.status(200).json({ user: { user_id: result_user.user_id, user_email: result_user.user_email, user_name: result_user.user_name }, token: token, msg: 'Account successfully created !' });
+        if (!user)
+            return res.status(400).json({ msg: 'Cannot sign up, this email is existed' });
+        let result_user = user === null || user === void 0 ? void 0 : user.dataValues;
+        let token = (0, token_service_1.generateTokens)({ username: String(result_user === null || result_user === void 0 ? void 0 : result_user.user_email) });
+        res.status(200).json(token);
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ msg: 'Internal server error' });
     }
 });

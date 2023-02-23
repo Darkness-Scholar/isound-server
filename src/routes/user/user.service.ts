@@ -14,6 +14,7 @@ export async function handleSignup ({ name, password, email }:iSignup): Promise<
             user_email: email,
             user_password: hashSync(password,10)
         })
+
         return createdUser
     } catch (error) {
         return null

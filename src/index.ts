@@ -1,4 +1,5 @@
 import express = require("express")
+require('dotenv').config();
 import cors = require("cors")
 import bodyParser = require('body-parser')
 import http = require("http")
