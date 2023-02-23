@@ -22,7 +22,7 @@ export default class UserController {
 
             const token = generateTokens({username: String(user?.user_email)})
 
-            res.status(200).json({data:{id:user.user_id,user_email:user.user_email,user_name:user.user_name},token:token})
+            res.status(200).json({data:{user_id:user.user_id,user_email:user.user_email,user_name:user.user_name},token:token})
         } catch (error) {
             res.status(500).json({ msg: 'Internal server error' })
         }

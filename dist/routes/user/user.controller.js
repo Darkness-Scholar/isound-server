@@ -30,7 +30,7 @@ UserController.signin = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!(0, bcrypt_1.compareSync)(password, user.user_password))
             return res.status(400).json({ msg: 'Invalid email or password' });
         const token = (0, token_service_1.generateTokens)({ username: String(user === null || user === void 0 ? void 0 : user.user_email) });
-        res.status(200).json({ data: { id: user.user_id, user_email: user.user_email, user_name: user.user_name }, token: token });
+        res.status(200).json({ data: { user_id: user.user_id, user_email: user.user_email, user_name: user.user_name }, token: token });
     }
     catch (error) {
         res.status(500).json({ msg: 'Internal server error' });
