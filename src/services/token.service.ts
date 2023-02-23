@@ -2,8 +2,8 @@ import jwt = require("jsonwebtoken")
 import { Request, Response, NextFunction } from "express";
 const { v4: uuidv4 } = require('uuid')
 
-export function generateTokens(user:{ username:string }) {
-    const accessToken = jwt.sign({ username: user.username }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
+export function generateTokens(user:{ user_id:string }) {
+    const accessToken = jwt.sign({ user_id:user.user_id }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
     const refreshToken = uuidv4();
     // global.__cache__.refreshToken = { ...global.__cache__.refreshToken, [user.username]: {refreshToken, expiresIn: null} }
     return { accessToken, refreshToken };
@@ -20,4 +20,14 @@ export function checkRefreshToken(req:Request, res:Response, next:NextFunction) 
     }; if (!isIncluded) return res.status(401).json("Refresh token is not valid")
     // const newTokens = generateTokens(user);
     // res.status(200).json(newTokens);
-  }
+}
+
+export function decoder (input:string) {
+    try {
+        let output = jwt.verify(input, 'ISOUND_ACCESS_TOKEN')
+        return output
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}

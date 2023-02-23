@@ -23,14 +23,13 @@ UserController.signin = (req, res) => __awaiter(void 0, void 0, void 0, function
         let { email, password } = req.body;
         if (!email || !password)
             return res.status(400).json({ msg: 'Email or Password is required' });
-        const result = yield User_model_1.default.findOne({ where: { user_email: email } });
-        if (result === null)
+        const { dataValues } = yield User_model_1.default.findOne({ where: { user_email: email } });
+        if (!dataValues)
             return res.status(400).json({ msg: 'Invalid email or password' });
-        const user = result === null || result === void 0 ? void 0 : result.dataValues;
-        if (!(0, bcrypt_1.compareSync)(password, user.user_password))
+        if (!(0, bcrypt_1.compareSync)(password, dataValues.user_password))
             return res.status(400).json({ msg: 'Invalid email or password' });
-        const token = (0, token_service_1.generateTokens)({ username: String(user === null || user === void 0 ? void 0 : user.user_email) });
-        res.status(200).json({ data: { user_id: user.user_id, user_email: user.user_email, user_name: user.user_name }, token: token });
+        let token = (0, token_service_1.generateTokens)({ user_id: String(dataValues.user_id) });
+        res.status(200).json(token);
     }
     catch (error) {
         res.status(500).json({ msg: 'Internal server error' });
@@ -41,11 +40,10 @@ UserController.signup = (req, res) => __awaiter(void 0, void 0, void 0, function
         let { name, password, email } = req.body;
         if (!name || !password || !email)
             return res.status(400).json({ msg: 'Email, Password or Name is required' });
-        let user = yield (0, user_service_1.handleSignup)({ email, password, name });
-        if (!user)
+        let { dataValues } = yield (0, user_service_1.handleSignup)({ email, password, name });
+        if (!dataValues)
             return res.status(400).json({ msg: 'Cannot sign up, this email is existed' });
-        let result_user = user === null || user === void 0 ? void 0 : user.dataValues;
-        let token = (0, token_service_1.generateTokens)({ username: String(result_user === null || result_user === void 0 ? void 0 : result_user.user_email) });
+        let token = (0, token_service_1.generateTokens)({ user_id: String(dataValues.user_id) });
         res.status(200).json(token);
     }
     catch (error) {
@@ -54,11 +52,9 @@ UserController.signup = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 UserController.profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { token } = req.headers;
-    console.log(token);
+    let { access_token } = req.headers;
+    let { user_id } = (0, token_service_1.decoder)(String(access_token));
+    let { dataValues } = yield User_model_1.default.findByPk(user_id);
     // send user profile
-    res.status(200).json({
-        username: 'test',
-        email: 'test@email.com'
-    });
+    res.status(200).json(dataValues);
 });

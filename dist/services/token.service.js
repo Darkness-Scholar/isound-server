@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkRefreshToken = exports.generateTokens = void 0;
+exports.decoder = exports.checkRefreshToken = exports.generateTokens = void 0;
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require('uuid');
 function generateTokens(user) {
-    const accessToken = jwt.sign({ username: user.username }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
+    const accessToken = jwt.sign({ user_id: user.user_id }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
     const refreshToken = uuidv4();
     // global.__cache__.refreshToken = { ...global.__cache__.refreshToken, [user.username]: {refreshToken, expiresIn: null} }
     return { accessToken, refreshToken };
@@ -26,3 +26,14 @@ function checkRefreshToken(req, res, next) {
     // res.status(200).json(newTokens);
 }
 exports.checkRefreshToken = checkRefreshToken;
+function decoder(input) {
+    try {
+        let output = jwt.verify(input, 'ISOUND_ACCESS_TOKEN');
+        return output;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+exports.decoder = decoder;
