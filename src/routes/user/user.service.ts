@@ -1,17 +1,18 @@
+import { hashSync } from "bcrypt"
 import User from "../../models/User.model"
 import { generateTokens } from "../../services/token.service"
 interface iSignup {
-    username: string,
+    name: string,
     password: string,
     email: string
 }
 
-export async function handleSignup ({ username, password, email }:iSignup): Promise<User|null> {
+export async function handleSignup ({ name, password, email }:iSignup): Promise<User|null> {
     try {
         let createdUser = await User.create({
-            user_name: username,
+            user_name: name,
             user_email: email,
-            user_password: password
+            user_password: hashSync(password,10)
         })
         return createdUser
     } catch (error) {

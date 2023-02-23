@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 export function generateTokens(user:{ username:string }) {
     const accessToken = jwt.sign({ username: user.username }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
     const refreshToken = uuidv4();
-    global.__cache__.refreshToken = { ...global.__cache__.refreshToken, [user.username]: {refreshToken, expiresIn: null} } 
+    // global.__cache__.refreshToken = { ...global.__cache__.refreshToken, [user.username]: {refreshToken, expiresIn: null} }
     return { accessToken, refreshToken };
 }
 
