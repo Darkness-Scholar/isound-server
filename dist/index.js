@@ -59,6 +59,9 @@ function main() {
 }
 ;
 main();
+app.get("/", (req, res) => {
+    res.json(`Last build :: 10:32 GMT+7 24-02-2023`);
+});
 app.use("/audio", audio_route_1.default);
 app.use("/user", user_router_1.default);
 io.on("connection", (socket) => {
