@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
+const cache_service_1 = require("./services/cache.service");
 require('dotenv').config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -25,42 +26,22 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "*",
+        origin: process.env.PRODUCT,
         methods: ['GET', 'POST']
     }
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // Testing only
-        let example = {
-            'user_id_example_001': {
-                refreshToken: 'user_id_example_001',
-                expiresIn: null
-            },
-            'user_id_example_002': {
-                refreshToken: 'user_id_example_002',
-                expiresIn: null
-            },
-            'user_id_example_003': {
-                refreshToken: 'user_id_example_003',
-                expiresIn: null
-            },
-        };
-        for (let item in example) {
-            // @ts-ignore
-            if (example[item].refreshToken === 'user_id_example_002') {
-                console.log(example[item]);
-            }
-            else {
-                console.log(`Nope`);
-            }
-        }
+        cache_service_1.default.set(1, 'hello_world', 10000);
+        const value = cache_service_1.default.get(1);
+        console.log(value);
     });
 }
 ;
 main();
+let build_time = new Date();
 app.get("/", (req, res) => {
-    res.json(`Last build :: 10:32 GMT+7 24-02-2023`);
+    res.json(`Last build :: ${build_time}`);
 });
 app.use("/audio", audio_route_1.default);
 app.use("/user", user_router_1.default);

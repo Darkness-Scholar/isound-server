@@ -1,4 +1,5 @@
 import express = require("express")
+import __cache__ from "./services/cache.service"
 require('dotenv').config();
 import cors = require("cors")
 import bodyParser = require('body-parser')
@@ -10,7 +11,6 @@ import { getAudioInfo } from "./routes/audio/audio.service"
 import user from "./routes/user/user.router"
 
 // Declare zone
-
 declare global {
     var __cache__:any
     namespace Express {
@@ -19,7 +19,6 @@ declare global {
         }
     }
 }
-
 // ===========>
 
 const app = express()
@@ -30,39 +29,21 @@ app.use(bodyParser.json())
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: process.env.PRODUCT,
         methods: ['GET', 'POST']
     }
 })
 
-
 async function main () {
-    // Testing only
-    let example:any = {
-        'user_id_example_001': {
-            refreshToken: 'user_id_example_001',
-            expiresIn: null
-        },
-        'user_id_example_002': {
-            refreshToken: 'user_id_example_002',
-            expiresIn: null
-        },
-        'user_id_example_003': {
-            refreshToken: 'user_id_example_003',
-            expiresIn: null
-        },
-    }
-    for (let item in example) {
-        // @ts-ignore
-        if (example[item].refreshToken === 'user_id_example_002') {
-            console.log(example[item])
-        } else { console.log(`Nope`) }
-    }
-
+    __cache__.set(1, 'hello_world', 10000)
+    const value = __cache__.get(1)
+    console.log(value)
 }; main()
 
+let build_time = new Date()
+
 app.get("/", (req, res) => {
-    res.json(`Last build :: 10:32 GMT+7 24-02-2023`)
+    res.json(`Last build :: ${build_time}`)
 })
 
 app.use("/audio", audio)
