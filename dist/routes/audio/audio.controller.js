@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-const audio_service_1 = require("./audio.service");
+const audio_service_1 = require("../../services/audio.service");
 const ytpl = require("ytpl");
 const TOPRATE = "PLUadgMpPaifXLKV26KIqpFp6mpZiyF2l9";
 const POPULAR = "PLUadgMpPaifVmhXn4xz-jRO934EAORUnX";
@@ -58,6 +58,17 @@ AudioController.info = (req, res) => __awaiter(void 0, void 0, void 0, function*
             return res.status(400).json('media id is required');
         let { related, details } = yield (0, audio_service_1.getAudioInfo)(mediaId);
         res.status(200).json({ related, details });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Internal server error' });
+    }
+});
+AudioController.search = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { keyword } = req.query;
+        let data = yield (0, audio_service_1.searchByKeyword)(String(keyword));
+        res.status(200).json(data);
     }
     catch (error) {
         console.log(error);
