@@ -4,10 +4,8 @@ require('dotenv').config();
 import cors = require("cors")
 import bodyParser = require('body-parser')
 import http = require("http")
-import { Server } from "socket.io"
-import { Sequelize } from "sequelize"
+// import { Server } from "socket.io"
 import audio from "./routes/audio/audio.route"
-import { getAudioInfo } from "./routes/audio/audio.service"
 import user from "./routes/user/user.router"
 
 // Declare zone
@@ -27,12 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const server = http.createServer(app)
-const io = new Server(server, {
-    cors: {
-        origin: process.env.PRODUCT,
-        methods: ['GET', 'POST']
-    }
-})
+// const io = new Server(server, {
+//     cors: {
+//         origin: process.env.PRODUCT,
+//         methods: ['GET', 'POST']
+//     }
+// })
 
 async function main () {
     __cache__.set(1, 'hello_world', 10000)
@@ -49,6 +47,7 @@ app.get("/", (req, res) => {
 app.use("/audio", audio)
 app.use("/user", user)
 
+/*
 io.on("connection", (socket) => {
 
     console.log(`ok: server`)
@@ -62,6 +61,7 @@ io.on("connection", (socket) => {
         io.emit("message", message);
     })
 })
+*/
 
 let PORT = process.env.PORT || 8888;
 server.listen(PORT, () => { console.log(`Server is running on port ${PORT}`) })
