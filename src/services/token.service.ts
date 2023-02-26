@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 const { v4: uuidv4 } = require('uuid')
 
 export function generateTokens(user:{ user_id:string }) {
-    const accessToken = jwt.sign({ user_id:user.user_id }, 'ISOUND_ACCESS_TOKEN', { expiresIn: '60m' });
+    const accessToken = jwt.sign({ user_id:user.user_id }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '60m' });
     const refreshToken = uuidv4();
     // global.__cache__.refreshToken = { ...global.__cache__.refreshToken, [user.username]: {refreshToken, expiresIn: null} }
     return { accessToken, refreshToken };
