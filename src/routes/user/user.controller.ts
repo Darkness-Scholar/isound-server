@@ -37,10 +37,11 @@ export default class UserController {
         }
     }
     static profile = async (req: Request, res: Response) => {
-        let { access_token } = req.headers
-        let { user_id }:JwtPayload|any = decoder(String(access_token))
+        // let { access_token } = req.headers
+        // let { user_id }:JwtPayload|any = decoder(String(access_token))
+        let user = req.user
 
-        let { dataValues }:any = await User.findByPk(user_id)
+        let { dataValues }:any = await User.findByPk(user)
         // send user profile
         res.status(200).json(dataValues)
     }

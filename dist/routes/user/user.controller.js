@@ -52,9 +52,10 @@ UserController.signup = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 UserController.profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { access_token } = req.headers;
-    let { user_id } = (0, token_service_1.decoder)(String(access_token));
-    let { dataValues } = yield User_model_1.default.findByPk(user_id);
+    // let { access_token } = req.headers
+    // let { user_id }:JwtPayload|any = decoder(String(access_token))
+    let user = req.user;
+    let { dataValues } = yield User_model_1.default.findByPk(user);
     // send user profile
     res.status(200).json(dataValues);
 });
