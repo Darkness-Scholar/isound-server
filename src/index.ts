@@ -33,9 +33,9 @@ const server = http.createServer(app)
 // })
 
 async function main () {
-    __cache__.set(1, 'hello_world', 10000)
-    const value = __cache__.get(1)
-    console.log(value)
+    // __cache__.set(1, 'hello_world', 10000)
+    // const value = __cache__.get(1)
+
 }; main()
 
 let build_time = new Date()

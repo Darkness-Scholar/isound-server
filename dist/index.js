@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const cache_service_1 = require("./services/cache.service");
 require('dotenv').config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -32,9 +31,8 @@ const server = http.createServer(app);
 // })
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        cache_service_1.default.set(1, 'hello_world', 10000);
-        const value = cache_service_1.default.get(1);
-        console.log(value);
+        // __cache__.set(1, 'hello_world', 10000)
+        // const value = __cache__.get(1)
     });
 }
 ;

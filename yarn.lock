@@ -1381,9 +1381,9 @@ yts@^2.0.1:
   dependencies:
     axios "^0.21.1"
 
-ytsr@^3.8.0:
+ytsr@3.8.0:
   version "3.8.0"
-  resolved "https://registry.npmjs.org/ytsr/-/ytsr-3.8.0.tgz"
+  resolved "https://registry.yarnpkg.com/ytsr/-/ytsr-3.8.0.tgz#49a8e5dc413f41515fc3d79d93ee3e073d10e772"
   integrity sha512-R+RfYXvBBMAr2e4OxrQ5SBv5x/Mdhmcj1Q8TH0f2HK5d2jbhHOtK4BdzPvLriA6MDoMwqqX04GD8Rpf9UNtSTg==
   dependencies:
     miniget "^4.2.2"

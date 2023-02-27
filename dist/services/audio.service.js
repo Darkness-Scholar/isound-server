@@ -43,6 +43,7 @@ function searchByKeyword(keyword) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { items } = yield ytsr(keyword);
+            console.log(items);
             let audios = items.filter((i) => i.type === "video");
             let channels = items.filter((i) => i.type === "channel");
             let playlists = items.filter((i) => i.type === "playlist");
