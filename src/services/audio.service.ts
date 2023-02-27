@@ -25,11 +25,15 @@ export async function getAudioInfo(sourceId:string):Promise<any> {
 export async function searchByKeyword (keyword:string) {
     try {
         const {items} = await ytsr(keyword)
+
+        console.log(items)
+
         let audios:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "video")
         let channels:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "channel")
         let playlists:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "playlist")
         return { audios, channels, playlists }
     } catch (error) {
+        console.log(error)
         return null
     }
 }

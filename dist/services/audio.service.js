@@ -49,6 +49,7 @@ function searchByKeyword(keyword) {
             return { audios, channels, playlists };
         }
         catch (error) {
+            console.log(error);
             return null;
         }
     });
