@@ -68,6 +68,8 @@ AudioController.search = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         let { keyword } = req.query;
         let data = yield (0, audio_service_1.searchByKeyword)(String(keyword));
+        if (!data)
+            return res.status(404).json({ msg: "Data is not found" });
         res.status(200).json(data);
     }
     catch (error) {

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.searchByKeyword = exports.getAudioInfo = exports.getStreamUrl = void 0;
 const ytdl = require("ytdl-core");
-const ytsr = require("ytsr");
+const yts = require("yt-search");
 function getStreamUrl(sourceId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -42,12 +42,11 @@ exports.getAudioInfo = getAudioInfo;
 function searchByKeyword(keyword) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { items } = yield ytsr(keyword);
-            console.log(items);
-            let audios = items.filter((i) => i.type === "video");
-            let channels = items.filter((i) => i.type === "channel");
-            let playlists = items.filter((i) => i.type === "playlist");
-            return { audios, channels, playlists };
+            const data = yield yts(keyword);
+            // let audios:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "video")
+            // let channels:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "channel")
+            // let playlists:Array<ytsr.Item> = items.filter((i:ytsr.Item) => i.type === "playlist")
+            return data;
         }
         catch (error) {
             console.log(error);

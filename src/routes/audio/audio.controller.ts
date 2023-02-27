@@ -53,6 +53,7 @@ export default class AudioController {
         try {
             let { keyword } = req.query
             let data = await searchByKeyword(String(keyword))
+            if (!data) return res.status(404).json({ msg: "Data is not found"})
             res.status(200).json(data)
         } catch (error) {
             console.log(error)
