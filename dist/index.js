@@ -17,6 +17,7 @@ const http = require("http");
 // import { Server } from "socket.io"
 const audio_route_1 = require("./routes/audio/audio.route");
 const user_router_1 = require("./routes/user/user.router");
+const playlist_router_1 = require("./routes/playlist/playlist.router");
 // ===========>
 const app = express();
 app.use(cors());
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 });
 app.use("/audio", audio_route_1.default);
 app.use("/user", user_router_1.default);
+app.use("/playlist", playlist_router_1.default);
 /*
 io.on("connection", (socket) => {
 

@@ -7,6 +7,7 @@ import http = require("http")
 // import { Server } from "socket.io"
 import audio from "./routes/audio/audio.route"
 import user from "./routes/user/user.router"
+import playlist from "./routes/playlist/playlist.router";
 
 // Declare zone
 declare global {
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 
 app.use("/audio", audio)
 app.use("/user", user)
+app.use("/playlist", playlist)
 
 /*
 io.on("connection", (socket) => {

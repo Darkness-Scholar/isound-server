@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_middleware_1 = require("../../middlewares/auth.middleware");
+const playlist_controller_1 = require("./playlist.controller");
+const playlist = (0, express_1.Router)();
+playlist.use(auth_middleware_1.AuthMiddleware);
+playlist.get('/get', playlist_controller_1.default.getPlayListByUser);
+playlist.post('/create', playlist_controller_1.default.createPlayList);
+playlist.post('/destroy', playlist_controller_1.default.destroyPlaylist);
+playlist.post('/edit', playlist_controller_1.default.editPlayList);
+exports.default = playlist;
