@@ -8,6 +8,8 @@ import http = require("http")
 import audio from "./routes/audio/audio.route"
 import user from "./routes/user/user.router"
 import playlist from "./routes/playlist/playlist.router";
+import playlist_detail from "./routes/playlist_detail/playlist_detail.router";
+import e = require("express");
 
 // Declare zone
 declare global {
@@ -36,7 +38,7 @@ const server = http.createServer(app)
 async function main () {
     // __cache__.set(1, 'hello_world', 10000)
     // const value = __cache__.get(1)
-
+    
 }; main()
 
 let build_time = new Date()
@@ -48,6 +50,7 @@ app.get("/", (req, res) => {
 app.use("/audio", audio)
 app.use("/user", user)
 app.use("/playlist", playlist)
+app.use("/playlist_detail", playlist_detail)
 
 /*
 io.on("connection", (socket) => {

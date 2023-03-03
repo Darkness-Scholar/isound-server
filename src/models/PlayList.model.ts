@@ -1,5 +1,6 @@
 import { Model, DataTypes, UUIDV4 } from "sequelize"
 import Sequelize from "./index"
+import { PlayListDetail } from "./PlayListDetail.model"
 
 interface iPlayList {
     playlist_id?: string,

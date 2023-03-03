@@ -1,15 +1,17 @@
 import { Request, Response } from "express"
 import PlayList from "../../models/PlayList.model"
 import { handleCreatePlayList, handleDestroyPlayList, handleEditPlayList } from "./playlist.service"
+import { PlayListDetail } from "../../models/PlayListDetail.model"
 export default class PlayListController {
     static getPlayListByUser = async (req: Request, res: Response) => {
         try {
             let user = req.user
-            const data = await PlayList.findAll({where:{user_id:user}})
+            const data = await PlayList.findAll({attributes:['playlist_id','playlist_name'],where:{user_id:user}, include:{model:PlayListDetail,attributes:['media_id']}})
 
             res.status(200).json(data)
         } catch (error) {
             res.status(500).json({ msg: 'Internal server error' })
+            console.log(error)
         }
     }
 

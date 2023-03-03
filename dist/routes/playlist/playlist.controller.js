@@ -12,6 +12,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const PlayList_model_1 = require("../../models/PlayList.model");
 const playlist_service_1 = require("./playlist.service");
+const PlayListDetail_model_1 = require("../../models/PlayListDetail.model");
 class PlayListController {
 }
 exports.default = PlayListController;
@@ -19,11 +20,12 @@ _a = PlayListController;
 PlayListController.getPlayListByUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let user = req.user;
-        const data = yield PlayList_model_1.default.findAll({ where: { user_id: user } });
+        const data = yield PlayList_model_1.default.findAll({ attributes: ['playlist_id', 'playlist_name'], where: { user_id: user }, include: { model: PlayListDetail_model_1.PlayListDetail, attributes: ['media_id'] } });
         res.status(200).json(data);
     }
     catch (error) {
         res.status(500).json({ msg: 'Internal server error' });
+        console.log(error);
     }
 });
 PlayListController.createPlayList = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
