@@ -9,4 +9,6 @@ playlist.get('/get', playlist_controller_1.default.getPlayListByUser);
 playlist.post('/create', playlist_controller_1.default.createPlayList);
 playlist.post('/destroy', playlist_controller_1.default.destroyPlaylist);
 playlist.post('/edit', playlist_controller_1.default.editPlayList);
+playlist.post('/createTest', playlist_controller_1.default.createTest);
+playlist.post('/getTest', playlist_controller_1.default.getTest);
 exports.default = playlist;

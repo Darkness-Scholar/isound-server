@@ -11,4 +11,8 @@ playlist.post('/create', PlayListController.createPlayList)
 playlist.post('/destroy', PlayListController.destroyPlaylist)
 playlist.post('/edit', PlayListController.editPlayList)
 
+playlist.post('/createTest', PlayListController.createTest)
+playlist.post('/getTest', PlayListController.getTest)
+
+
 export default playlist
