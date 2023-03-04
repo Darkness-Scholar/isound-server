@@ -6,13 +6,10 @@ const playlist = Router()
 
 playlist.use(AuthMiddleware)
 
-playlist.get('/get', PlayListController.getPlayListByUser)
+playlist.get('/get', PlayListController.getPlayList)
 playlist.post('/create', PlayListController.createPlayList)
-playlist.post('/destroy', PlayListController.destroyPlaylist)
 playlist.post('/edit', PlayListController.editPlayList)
-
-playlist.post('/createTest', PlayListController.createTest)
-playlist.post('/getTest', PlayListController.getTest)
+playlist.post('/destroy', PlayListController.destroyPlayList)
 
 
 export default playlist

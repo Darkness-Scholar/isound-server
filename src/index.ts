@@ -8,7 +8,6 @@ import http = require("http")
 import audio from "./routes/audio/audio.route"
 import user from "./routes/user/user.router"
 import playlist from "./routes/playlist/playlist.router";
-import playlist_detail from "./routes/playlist_detail/playlist_detail.router";
 import e = require("express");
 
 // Declare zone
@@ -50,7 +49,6 @@ app.get("/", (req, res) => {
 app.use("/audio", audio)
 app.use("/user", user)
 app.use("/playlist", playlist)
-app.use("/playlist_detail", playlist_detail)
 
 /*
 io.on("connection", (socket) => {

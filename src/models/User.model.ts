@@ -1,6 +1,5 @@
 import { Model, DataTypes, UUIDV4 } from "sequelize"
 import Sequelize from "./index"
-import PlayListTest from "./PlayListTest.model";
 
 interface iUser {
     user_id?: string,
