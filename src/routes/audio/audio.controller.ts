@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { getAudioInfo, getStreamUrl, searchByKeyword } from "../../services/audio.service"
 import ytpl = require("ytpl")
+import __cache__ from "../../services/cache.service"
 const TOPRATE = "PLUadgMpPaifXLKV26KIqpFp6mpZiyF2l9"
 const POPULAR = "PLUadgMpPaifVmhXn4xz-jRO934EAORUnX"
 
@@ -19,8 +20,15 @@ export default class AudioController {
 
     static toprate = async (req: Request, res: Response) => {
         try {
-            let { items } = await ytpl(TOPRATE)
-            res.status(200).json(items)
+            if (__cache__.get("toprate")) {
+                console.log(`Get toprate data from cache`)
+                return res.status(200).json(__cache__.get("toprate"))
+            } else {
+                let { items } = await ytpl(TOPRATE)
+                console.log(`Save to cache`)
+                __cache__.set("toprate", items, 3600 * 24)
+                return res.status(200).json(items)
+            }
         } catch (error) {
             console.log(error)
             res.status(500).json({ msg: 'Internal server error' })
@@ -28,12 +36,14 @@ export default class AudioController {
     }
     
     static popular = async (req: Request, res: Response) => {
-        try {
+        if (__cache__.get("popular")) {
+            console.log(`Get popular data from cache`)
+            return res.status(200).json(__cache__.get("popular"))
+        } else {
             let { items } = await ytpl(POPULAR)
-            res.status(200).json(items)
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ msg: 'Internal server error' })
+            console.log(`Save to cache`)
+            __cache__.set("popular", items, 3600 * 24)
+            return res.status(200).json(items)
         }
     }
 

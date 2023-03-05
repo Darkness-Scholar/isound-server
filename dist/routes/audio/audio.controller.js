@@ -12,6 +12,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const audio_service_1 = require("../../services/audio.service");
 const ytpl = require("ytpl");
+const cache_service_1 = require("../../services/cache.service");
 const TOPRATE = "PLUadgMpPaifXLKV26KIqpFp6mpZiyF2l9";
 const POPULAR = "PLUadgMpPaifVmhXn4xz-jRO934EAORUnX";
 class AudioController {
@@ -33,8 +34,16 @@ AudioController.stream = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 AudioController.toprate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { items } = yield ytpl(TOPRATE);
-        res.status(200).json(items);
+        if (cache_service_1.default.get("toprate")) {
+            console.log(`Get toprate data from cache`);
+            return res.status(200).json(cache_service_1.default.get("toprate"));
+        }
+        else {
+            let { items } = yield ytpl(TOPRATE);
+            console.log(`Save to cache`);
+            cache_service_1.default.set("toprate", items, 3600 * 24);
+            return res.status(200).json(items);
+        }
     }
     catch (error) {
         console.log(error);
