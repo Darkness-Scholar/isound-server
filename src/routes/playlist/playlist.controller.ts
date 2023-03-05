@@ -5,8 +5,10 @@ export default class PlayListController {
         try {
             const user_id = req.user
             const { playlist_description, playlist_image, playlist_status } = req.body
-            const { playlist_name,playlist_media } = req.body
+            const { playlist_name, playlist_media } = req.body
             if(!playlist_name) return res.status(400).json({msg: 'Required value'})
+
+            console.log(`Payload:`, playlist_name, playlist_description, playlist_image, playlist_status)
 
             const result = await handleCreatePlayList({
                 playlist_name: playlist_name,

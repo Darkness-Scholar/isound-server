@@ -22,6 +22,7 @@ PlayListController.createPlayList = (req, res) => __awaiter(void 0, void 0, void
         const { playlist_name, playlist_media } = req.body;
         if (!playlist_name)
             return res.status(400).json({ msg: 'Required value' });
+        console.log(`Payload:`, playlist_name, playlist_description, playlist_image, playlist_status);
         const result = yield (0, playlist_service_1.handleCreatePlayList)({
             playlist_name: playlist_name,
             playlist_status: playlist_status,
