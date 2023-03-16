@@ -54,13 +54,7 @@ exports.handleGetPlayList = handleGetPlayList;
 function handleEditPlayList({ playlist_id, playlist_name, playlist_status, playlist_image, playlist_description, user_id, playlist_media }) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let result = yield PlayList_model_1.default.update({
-                playlist_name: playlist_name,
-                playlist_status: playlist_status,
-                playlist_image: playlist_image,
-                playlist_description: playlist_description,
-                playlist_media: playlist_media
-            }, {
+            let result = yield PlayList_model_1.default.update(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (!!playlist_name && { playlist_name })), (!!playlist_status && { playlist_status })), (!!playlist_image && { playlist_image })), (!!playlist_description && { playlist_description })), (!!playlist_media && { playlist_media })), {
                 where: { user_id: user_id, playlist_id: playlist_id }
             });
             return result;

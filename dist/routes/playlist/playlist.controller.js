@@ -22,7 +22,7 @@ PlayListController.createPlayList = (req, res) => __awaiter(void 0, void 0, void
         const { playlist_name, playlist_media } = req.body;
         if (!playlist_name)
             return res.status(400).json({ msg: 'Required value' });
-        console.log(`Payload:`, playlist_name, playlist_description, playlist_image, playlist_status);
+        console.log(`Create Playlist Payload:`, playlist_name, playlist_description, playlist_image, playlist_status);
         const result = yield (0, playlist_service_1.handleCreatePlayList)({
             playlist_name: playlist_name,
             playlist_status: playlist_status,
@@ -56,16 +56,8 @@ PlayListController.getPlayList = (req, res) => __awaiter(void 0, void 0, void 0,
 PlayListController.editPlayList = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user_id = req.user;
-        const { playlist_id, playlist_name, playlist_status, playlist_image, playlist_description, playlist_media } = req.body;
-        const rowModified = yield (0, playlist_service_1.handleEditPlayList)({
-            playlist_id: playlist_id,
-            playlist_name: playlist_name,
-            playlist_status: playlist_status,
-            playlist_image: playlist_image,
-            playlist_description: playlist_description,
-            user_id: user_id,
-            playlist_media: playlist_media
-        });
+        // const { playlist_id, playlist_name, playlist_status, playlist_image, playlist_description, playlist_media } = req.body
+        const rowModified = yield (0, playlist_service_1.handleEditPlayList)(Object.assign(Object.assign({}, req.body), { user_id }));
         if (rowModified == null)
             return res.status(400).json({ msg: 'Edit faild' });
         res.status(200).json({ msg: 'Edit successfully' });
@@ -78,7 +70,7 @@ PlayListController.editPlayList = (req, res) => __awaiter(void 0, void 0, void 0
 PlayListController.destroyPlayList = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user_id = req.user;
-        const { playlist_id } = req.body;
+        const { playlist_id } = req.query;
         const rowModified = yield (0, playlist_service_1.handleDestroyPlayList)({
             user_id: user_id,
             playlist_id: playlist_id

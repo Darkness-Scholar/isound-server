@@ -51,13 +51,15 @@ AudioController.toprate = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 AudioController.popular = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        let { items } = yield ytpl(POPULAR);
-        res.status(200).json(items);
+    if (cache_service_1.default.get("popular")) {
+        console.log(`Get popular data from cache`);
+        return res.status(200).json(cache_service_1.default.get("popular"));
     }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: 'Internal server error' });
+    else {
+        let { items } = yield ytpl(POPULAR);
+        console.log(`Save to cache`);
+        cache_service_1.default.set("popular", items, 3600 * 24);
+        return res.status(200).json(items);
     }
 });
 AudioController.info = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

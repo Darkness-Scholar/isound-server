@@ -57,12 +57,12 @@ export async function handleGetPlayList({user_id}:iGetPlayList) : Promise<PlayLi
 
 interface iEditPlayList {
     playlist_id: string
-    playlist_name: string
-    playlist_status: boolean
-    playlist_image: string
-    playlist_description: string
-    user_id: string
-    playlist_media: Array<string>
+    playlist_name?: string
+    playlist_status?: boolean
+    playlist_image?: string
+    playlist_description?: string
+    user_id?: string
+    playlist_media?: Array<string>
 }
 
 export async function handleEditPlayList({
@@ -75,11 +75,11 @@ export async function handleEditPlayList({
     playlist_media} : iEditPlayList) {
         try {
             let result = await PlayList.update({
-                playlist_name: playlist_name,
-                playlist_status: playlist_status,
-                playlist_image: playlist_image,
-                playlist_description: playlist_description,
-                playlist_media: playlist_media
+                ...(!!playlist_name && { playlist_name }),
+                ...(!!playlist_status && { playlist_status }),
+                ...(!!playlist_image && { playlist_image }),
+                ...(!!playlist_description && { playlist_description }),
+                ...(!!playlist_media && { playlist_media }),
             },{
                 where:{ user_id : user_id, playlist_id: playlist_id}
             })
