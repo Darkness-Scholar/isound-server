@@ -9,6 +9,7 @@ import audio from "./routes/audio/audio.route"
 import user from "./routes/user/user.router"
 import playlist from "./routes/playlist/playlist.router";
 import e = require("express");
+import upload from "./routes/upload/upload.router";
 
 // Declare zone
 declare global {
@@ -49,6 +50,7 @@ app.get("/", (req, res) => {
 app.use("/audio", audio)
 app.use("/user", user)
 app.use("/playlist", playlist)
+app.use("/upload", upload)
 
 /*
 io.on("connection", (socket) => {
