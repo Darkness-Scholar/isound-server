@@ -28,4 +28,7 @@ class MemoryCache {
 }
 
 let __cache__ = new MemoryCache()
+
+export let refreshTokenListCache = new MemoryCache()
+
 export default __cache__

@@ -57,7 +57,7 @@ export default class PlayListController {
             console.log(error)
             res.status(500).json({msg: 'Interval server error'})
         }
-    }
+     }
 
     static destroyPlayList = async (req: Request, res: Response) => {
         try {

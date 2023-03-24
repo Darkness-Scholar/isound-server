@@ -1,45 +1,79 @@
 # APIs Document:
 
-1. Audio
 
-> GET: GET AUDIO STREAM URL
+1. `GET` Top rate
 
-- Api: http://localhost:8888/audio/stream?mediaId={{mediaId}}
+    - Url: `/audio/toprate`
 
-- Query params:
-
-    + `mediaId`: Mã của video trên youtube, ví dụ: youtube.com/watch?v=Llw9Q6akRo4
-
-- Example: `axios.get("http://localhost:8888/audio/stream?mediaId=Llw9Q6akRo4")`
-
-- Response: `https://rr6---sn-42u-i5oey.googlevideo.com/videoplayback?expire=1676124362&ei=akznY-XvN-ScvcAPt-uQ4As&ip=2405%3A4802%3A153%3Abc00%3A34e7%3Ab43f%3A8f2d%3A9329&id=o-ALCtNI-e6xoPXUsW7jhbwE4NYfiTyiCwDuiK1Xm4lr2V&itag=251&source=youtube&requiressl=yes&mh=qr&mm=31%2C26&mn=sn-42u-i5oey%2Csn-un57enel&ms=au%2Conr&mv=m&mvi=6&pl=50&initcwndbps=2322500&vprv=1&mime=audio%2Fwebm&ns=rfvabKvWxb1WdBYP48Imu1kL&gir=yes&clen=4394284&dur=272.221&lmt=1628556513592425&mt=1676102480&fvip=3&keepalive=yes&fexp=24007246&c=WEB&txp=5511222&n=heqbKRslFXGvIQ&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgeezsXF7kfJuUKjr8h3ItMYAkEmtm8Pf6j6UQvRb_LvkCIFKhbzKNqFhyrOMcxA_AWSiUk48kvfVpMsp3wvxzDOjN&sig=AOq0QJ8wRgIhAKL0uGacUE5mQCkslDmLt1YFAPgXt1-N7DMgV2DaFzF4AiEA5RwxBhqJyBwnywklkguS4gwM8YIAp-ioxTXMMwpQ3zE%3D`
+    - Example: `axios.get(".../audio/toprate").then(res => console.log(res))`
 
 
-> GET: AUDIO INFORMATION
+2. `GET` Popular
 
-- Api: http://localhost:8888/audio/info?mediaId={{mediaId}}
+    - Url: `/audio/popular`
 
-- Query params:
-
-    + `mediaId`: Mã của video trên youtube, ví dụ: youtube.com/watch?v=Llw9Q6akRo4
-
-- Example: `axios.get("http://localhost:8888/audio/info?mediaId=Llw9Q6akRo4")`
-
-- Response: `{ related, details }`
-
-    + `related`: Các nội dung liên quan
-
-    + `details`: Thông tin
+    - Example: `axios.get(".../audio/popular").then(res => console.log(res))`
 
 
-> GET: TOPRATE CONTENT
+3. `GET` Search
 
-- Api: http://localhost:8888/audio/toprate
+    - Url: `/audio/search?keyword={{...}}`
 
-- Example: `axios.get("http://localhost:8888/audio/toprate")`
+    - Example: `axios.get(".../audio/search?keyword=Lac%troi").then(res => console.log(res))`
 
-> GET: POPULAR CONTENT
 
-- Api: http://localhost:8888/audio/popular
+4. `GET` Stream
 
-- Example: `axios.get("http://localhost:8888/audio/popular")`
+    - Url: `/audio/stream?media={{...}}`
+
+    - Example: `axios.get(".../audio/stream?mediaId=Llw9Q6akRo4").then(res => console.log(res))`
+
+
+5. `POST` Signin / Signup
+
+    - Url: `/user/signin` Or `/user/signup`
+
+    - Body (Signin): {
+        email: required,
+        password: required    
+    }
+
+    - Body (Signup): {
+        name: required
+        email: required,
+        password: required    
+    }
+
+    - Example: 
+    ```js
+    axios.post(".../user/signup", {
+        name: "Tung",
+        email: "eee@gmail.com",
+        password: "123123"   
+    }).then(res => console.log(res))
+    ```
+
+6. `POST` Upload media:
+
+    - Url: `/upload/media`
+
+    - Headers: {
+        access_token: required
+    }
+
+    - Body: {
+        media_description, 
+        media_cover: required, 
+        media_author: required, 
+        media_src: required
+    }
+
+    - Example: 
+    ```js
+    axios.post(".../upload/media", {
+        media_description: "hello world", 
+        media_cover: "http://localhost:4444/files/test.jpg", 
+        media_author: "Tung dz", 
+        media_src: "http://localhost:4444/files/testaudio.mpeg"
+    }).then(res => console.log(res))
+    ```

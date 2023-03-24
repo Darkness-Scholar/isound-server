@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.refreshTokenListCache = void 0;
 /** Memory Cache module
     @author {TungHwang} @link https://www.facebook.com/tlt69
     - Dữ liệu trong cache được lưu tạm trên RAM nên sẽ tự bị xóa khi đóng chương trình
@@ -27,4 +28,5 @@ class MemoryCache {
     }
 }
 let __cache__ = new MemoryCache();
+exports.refreshTokenListCache = new MemoryCache();
 exports.default = __cache__;
